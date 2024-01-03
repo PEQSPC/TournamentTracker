@@ -6,7 +6,7 @@
         /// <summary>
         /// Name of the team member
         /// </summary>
-        public int FirstName { get; set; }
+        public string FirstName { get; set; }
         /// <summary>
         /// Last Name of the team member
         /// </summary>

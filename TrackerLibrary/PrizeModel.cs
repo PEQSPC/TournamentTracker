@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrackerLibrary
+﻿namespace TrackerLibrary
 {
-    internal class PrizeModel
+    public class PrizeModel
     {
+
+        /// <summary>
+        /// Unique id to identify the prize
+        /// </summary>
+        public int id { get; set; }
         /// <summary>
         /// Lugar da qualificaçao
         /// </summary>
@@ -19,8 +18,32 @@ namespace TrackerLibrary
         /// <summary>
         /// Preço de cada qualificacao
         /// </summary>
-        public int PrizeAmount { get; set; }
-        
+        public decimal PrizeAmount { get; set; }
+
         public double PrizePercentage { get; set; }
+
+        public PrizeModel()
+        {
+
+        }
+
+        public PrizeModel(string placeName, string placeNumber, string prizeAmount, string prizePercentage)
+        {
+            PlaceName = placeName;
+
+            int placeNumberValue = 0;
+            int.TryParse(placeNumber, out placeNumberValue);
+            PlaceNumber = placeNumberValue;
+
+            decimal prizeAmountValue = 0;
+            decimal.TryParse(prizeAmount, out prizeAmountValue);
+            PrizeAmount = prizeAmountValue;
+
+            double prizePercentageValue = 0;
+            double.TryParse(prizePercentage, out prizePercentageValue);
+            PrizePercentage = prizePercentageValue;
+
+        }
+
     }
 }
