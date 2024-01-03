@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using TrackerLibrary.Models;
+using TrackerLibrary.DataAcess;
 using TrackerLibrary;
 
 namespace TrackerUI
@@ -20,16 +22,15 @@ namespace TrackerUI
                 PrizeModel model = new PrizeModel(PlaceNameValue.Text, placeNumberValue.Text, PrizeAmountValue.Text, PrizePercentageValue.Text);
 
 
-                foreach (IDataConnection db in GlobalConfig.Connections)
-                {
-                    db.CreatePrize(model);
-                }
+                GlobalConfig.Connection.CreatePrize(model);
 
 
                 PlaceNameValue.Text = "";
                 placeNumberValue.Text = "";
                 PrizeAmountValue.Text = "0";
                 PrizePercentageValue.Text = "0";
+
+               // MessageBox.Show(model.Id.ToString());
 
             }
             else
@@ -66,7 +67,7 @@ namespace TrackerUI
                 return output == false;
             }
 
-            if (prizeAmmount <= 0 && prizePercentage <= 0)
+            if (prizeAmmount <= 0&& prizePercentage <= 0)
             {
                 return output == false;
             }

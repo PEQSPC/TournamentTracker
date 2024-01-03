@@ -1,4 +1,4 @@
-﻿namespace TrackerLibrary
+﻿namespace TrackerLibrary.Models
 {
     public class PrizeModel
     {
@@ -6,7 +6,7 @@
         /// <summary>
         /// Unique id to identify the prize
         /// </summary>
-        public int id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// Lugar da qualificaçao
         /// </summary>

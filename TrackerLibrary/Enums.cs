@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace TrackerLibrary
 {
-    public interface IDataConnection
+
+    public enum DataBaseType
     {
-
-        PrizeModel CreatePrize(PrizeModel model);
-
+        Sql,
+        TextFile
     }
+
 }
