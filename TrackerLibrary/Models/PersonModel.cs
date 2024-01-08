@@ -2,7 +2,7 @@
 {
     public class PersonModel
     {
-
+        public int Id { get; set; }
         /// <summary>
         /// Name of the team member
         /// </summary>
@@ -15,5 +15,21 @@
         public string EmailAddress { get; set; }
 
         public string PhoneNumber { get; set; }
+
+       public string FullName
+        {
+            get {
+
+                return $"{FirstName} {LastName}";
+            }
+        }
+
+        public PersonModel()
+        {
+            
+        }
+
+        
+
     }
 }

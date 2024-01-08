@@ -26,6 +26,31 @@ namespace TrackerLibrary.DataAccess.TextHelpers
            return File.ReadAllLines(file).ToList();
         }
 
+
+        //TODO-Criar funcao para ler do ficheiro e salvar no ficheiro
+        public static List<PersonModel> ConvertToPersonModels(this List<string> lines)
+        {
+            List<PersonModel> output = new List<PersonModel>();
+
+            foreach (string line in lines)
+            {
+                string[] cols = line.Split(',');
+
+                PersonModel p = new PersonModel();
+                //p.Id = int.Parse(cols[0]);
+                //p.PlaceNumber = int.Parse(cols[1]);
+                //p.PlaceName = cols[2];
+                //p.PrizeAmount = decimal.Parse(cols[3]);
+                //p.PrizePercentage = double.Parse(cols[4]);
+
+                output.Add(p);
+            }
+
+            return output;
+        }
+
+
+
         public static List<PrizeModel> ConvertToPrizeModels(this List<string> lines)
         {
             List<PrizeModel> output = new List<PrizeModel>();

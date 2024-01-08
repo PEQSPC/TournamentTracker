@@ -9,6 +9,7 @@ namespace TrackerLibrary.DataAcess
     public class TextConnection : IDataConnection
     {
         private const string PrizesFile = "PrizeModels.csv";
+        private const string PersonFile = "PersonModels.csv";
         //TODO - Wire up the CreatePrize for text files.
         public PrizeModel CreatePrize(PrizeModel model)
         {
@@ -32,6 +33,16 @@ namespace TrackerLibrary.DataAcess
             prizes.SaveToPrizeFile(PrizesFile);
 
             return model;
+        }
+
+        public PersonModel CreatePerson(PersonModel model)
+        {
+            return model;
+        }
+
+        public List<PersonModel> GetPerson_ALL()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

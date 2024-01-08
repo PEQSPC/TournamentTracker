@@ -1,4 +1,5 @@
-﻿using TrackerLibrary.Models;
+﻿using System.Collections.Generic;
+using TrackerLibrary.Models;
 
 namespace TrackerLibrary.DataAcess
 {
@@ -6,6 +7,12 @@ namespace TrackerLibrary.DataAcess
     {
 
         PrizeModel CreatePrize(PrizeModel model);
+
+
+        //TODO- CREATE DATA CONNECTION PERSON
+        PersonModel CreatePerson(PersonModel model);
+
+        List<PersonModel> GetPerson_ALL();
 
     }
 }
