@@ -42,6 +42,23 @@ namespace TrackerLibrary.DataAcess
 
         public List<PersonModel> GetPerson_ALL()
         {
+            return PersonFile.FullFilePath().LoadFile().ConvertToPersonModels();
+        }
+
+        public TeamModel CreateTeam(TeamModel model)
+        {
+            throw new System.NotImplementedException();
+        }
+
+      
+
+        public TeamModel CreateTeamMembers(PersonModel person, TeamModel team)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<TeamModel> GetAllTeams()
+        {
             throw new System.NotImplementedException();
         }
     }

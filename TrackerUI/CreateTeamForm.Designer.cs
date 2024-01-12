@@ -30,7 +30,7 @@
         {
             this.labelCreateTeam = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtTeamName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnAddMember = new System.Windows.Forms.Button();
             this.groupBoxAddNewMember = new System.Windows.Forms.GroupBox();
@@ -45,8 +45,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.comboxSelectTeamMember = new System.Windows.Forms.ComboBox();
             this.teamMembersListBox = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnDeleteSelect = new System.Windows.Forms.Button();
+            this.createTeamButton = new System.Windows.Forms.Button();
             this.groupBoxAddNewMember.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,12 +70,12 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Team Name";
             // 
-            // textBox1
+            // txtTeamName
             // 
-            this.textBox1.Location = new System.Drawing.Point(34, 132);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(334, 22);
-            this.textBox1.TabIndex = 3;
+            this.txtTeamName.Location = new System.Drawing.Point(34, 132);
+            this.txtTeamName.Name = "txtTeamName";
+            this.txtTeamName.Size = new System.Drawing.Size(334, 22);
+            this.txtTeamName.TabIndex = 3;
             // 
             // label3
             // 
@@ -197,7 +197,6 @@
             // 
             // comboxSelectTeamMember
             // 
-            this.comboxSelectTeamMember.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboxSelectTeamMember.FormattingEnabled = true;
             this.comboxSelectTeamMember.Location = new System.Drawing.Point(41, 277);
             this.comboxSelectTeamMember.Name = "comboxSelectTeamMember";
@@ -213,37 +212,39 @@
             this.teamMembersListBox.Size = new System.Drawing.Size(424, 580);
             this.teamMembersListBox.TabIndex = 9;
             // 
-            // button1
+            // btnDeleteSelect
             // 
-            this.button1.Location = new System.Drawing.Point(908, 263);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(83, 217);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Delete Selected";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnDeleteSelect.Location = new System.Drawing.Point(913, 260);
+            this.btnDeleteSelect.Name = "btnDeleteSelect";
+            this.btnDeleteSelect.Size = new System.Drawing.Size(83, 217);
+            this.btnDeleteSelect.TabIndex = 10;
+            this.btnDeleteSelect.Text = "Delete Selected";
+            this.btnDeleteSelect.UseVisualStyleBackColor = true;
+            this.btnDeleteSelect.Click += new System.EventHandler(this.btnDeleteSelect_Click);
             // 
-            // button2
+            // createTeamButton
             // 
-            this.button2.Location = new System.Drawing.Point(407, 709);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(295, 84);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Create Team";
-            this.button2.UseVisualStyleBackColor = true;
+            this.createTeamButton.Location = new System.Drawing.Point(407, 709);
+            this.createTeamButton.Name = "createTeamButton";
+            this.createTeamButton.Size = new System.Drawing.Size(295, 84);
+            this.createTeamButton.TabIndex = 10;
+            this.createTeamButton.Text = "Create Team";
+            this.createTeamButton.UseVisualStyleBackColor = true;
+            this.createTeamButton.Click += new System.EventHandler(this.createTeamButton_Click);
             // 
             // CreateTeamForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1026, 811);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.createTeamButton);
+            this.Controls.Add(this.btnDeleteSelect);
             this.Controls.Add(this.teamMembersListBox);
             this.Controls.Add(this.comboxSelectTeamMember);
             this.Controls.Add(this.groupBoxAddNewMember);
             this.Controls.Add(this.btnAddMember);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtTeamName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelCreateTeam);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -262,7 +263,7 @@
 
         private System.Windows.Forms.Label labelCreateTeam;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtTeamName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAddMember;
         private System.Windows.Forms.GroupBox groupBoxAddNewMember;
@@ -277,7 +278,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnCreateMember;
         private System.Windows.Forms.ListBox teamMembersListBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnDeleteSelect;
+        private System.Windows.Forms.Button createTeamButton;
     }
 }

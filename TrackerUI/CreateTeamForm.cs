@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrackerLibrary;
 using TrackerLibrary.Models;
@@ -15,23 +9,26 @@ namespace TrackerUI
     public partial class CreateTeamForm : Form
     {
 
-        public List<PersonModel> availableTeamMembers = new List<PersonModel>();
+        public List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPerson_ALL();
         public List<PersonModel> selectedTeamMembers = new List<PersonModel>();
+        public List<TeamModel> availableTeams = new List<TeamModel>();
 
 
         public CreateTeamForm()
         {
             InitializeComponent();
-            CreateSampleData();
+            //CreateSampleData();
             WireUpLists();
 
         }
+
         private void CreateSampleData()
         {
 
-            GlobalConfig.Connection.GetPerson_ALL();
+
+
             availableTeamMembers.Add(new PersonModel { FirstName = "Tim", LastName = "Corey" });
-            availableTeamMembers.Add(new PersonModel { FirstName = "Andre", LastName = "veloz"});
+            availableTeamMembers.Add(new PersonModel { FirstName = "Andre", LastName = "veloz" });
             availableTeamMembers.Add(new PersonModel { FirstName = "pedro", LastName = "pinoquio" });
 
             selectedTeamMembers.Add(new PersonModel { FirstName = "ALVARO", LastName = "AE2" });
@@ -40,31 +37,43 @@ namespace TrackerUI
 
         private void WireUpLists()
         {
+
+            comboxSelectTeamMember.DataSource = null;
+
+            // availableTeamMembers = GlobalConfig.Connection.GetPerson_ALL();
             comboxSelectTeamMember.DataSource = availableTeamMembers;
             comboxSelectTeamMember.DisplayMember = "FullName";
 
+            teamMembersListBox.DataSource = null;
             teamMembersListBox.DataSource = selectedTeamMembers;
             teamMembersListBox.DisplayMember = "FullName";
+
+            comboxSelectTeamMember.Refresh();
+            teamMembersListBox.Refresh();
         }
+
 
         private void btnCreateMember_Click(object sender, EventArgs e)
         {
             if (ValidadeForm())
             {
-                PersonModel model = new PersonModel();
-                model.FirstName = txtName.Text;
-                model.LastName = txtLastName.Text;
-                model.EmailAddress = txtEmail.Text;
-                model.PhoneNumber = txtCellPhone.Text;
+                PersonModel model = new PersonModel
+                {
+                    FirstName = txtName.Text,
+                    LastName = txtLastName.Text,
+                    EmailAddress = txtEmail.Text,
+                    PhoneNumber = txtCellPhone.Text
+                };
 
-                GlobalConfig.Connection.CreatePerson(model);
-
+                model = GlobalConfig.Connection.CreatePerson(model);
+                selectedTeamMembers.Add(model);
+                WireUpLists();
 
                 txtName.Text = "";
                 txtLastName.Text = "";
                 txtEmail.Text = "@";
                 txtCellPhone.Text = "+";
-               // comboxSelectTeamMember.Update();
+                // comboxSelectTeamMember.Update();
 
                 // MessageBox.Show(model.Id.ToString());
 
@@ -104,11 +113,11 @@ namespace TrackerUI
         {
             bool output = true;
 
-            if(txtName.Text.Length == 0)
+            if (txtName.Text.Length == 0)
             {
                 return output = false;
             }
-            if(txtLastName.Text.Length < 0)
+            if (txtLastName.Text.Length < 0)
             {
                 return output = false;
             }
@@ -117,38 +126,101 @@ namespace TrackerUI
             {
                 return output = false;
             }
-            
+
             if (!txtCellPhone.Text.StartsWith("+"))
             {
                 return output = false;
             }
-
 
             return output;
         }
 
         private void btnAddMember_Click(object sender, EventArgs e)
         {
-            if (comboxSelectTeamMember.SelectedItem != null)
+            PersonModel p = (PersonModel)comboxSelectTeamMember.SelectedItem;
+
+            if (p != null)
             {
-                // Get the selected team member
-                PersonModel selectedTeamMember = (PersonModel)comboxSelectTeamMember.SelectedItem;
+                availableTeamMembers.Remove(p);
+                selectedTeamMembers.Add(p);
+                WireUpLists();
+            }
 
-                // Set the selected team member as the new selected item
-                comboxSelectTeamMember.SelectedItem = selectedTeamMember;
+        }
 
-                // Remove the selected team member from the availableTeamMembers list
-                availableTeamMembers.Remove(selectedTeamMember);
+        private void btnDeleteSelect_Click(object sender, EventArgs e)
+        {
 
-                // Add the selected team member to the selectedTeamMembers list
-                selectedTeamMembers.Add(selectedTeamMember);
+            PersonModel p = (PersonModel)teamMembersListBox.SelectedItem;
+
+            if (p != null)
+            {
+                availableTeamMembers.Add(p);
+                selectedTeamMembers.Remove(p);
+                WireUpLists();
+            }
+
+        }
+        public bool ValidadeTeamCreate(out string message)
+        {
+            bool output = true;
+
+            if (txtTeamName.Text == "")
+            {
+                message = "Team doesnt have a name";
+                return false;
+            }
+            if (teamMembersListBox.Items.Count < 5)
+            {
+                message = "Team needs to have at least 5 members";
+                return false;
+            }
+
+            availableTeams = GlobalConfig.Connection.GetAllTeams();
+
+
+            foreach (TeamModel team in availableTeams)
+            {
+                string nome = team.TeamName;
+                nome = nome.ToLower().Replace(" ", "");
+                txtTeamName.Text = txtTeamName.Text.ToLower().Replace(" ", "");
+                if (nome == txtTeamName.Text)
+                {
+                    message = "Exists one team with the same name";
+                    return false;
+                }
+            }
+
+
+            message = "";
+            return output;
+        }
+
+
+        private void createTeamButton_Click(object sender, EventArgs e)
+        {
+            string message;
+            if (ValidadeTeamCreate(out message))
+            {
+
+                TeamModel modelTeam = new TeamModel();
+                modelTeam.TeamName = txtTeamName.Text;
+
+
+                TeamModel modelid = GlobalConfig.Connection.CreateTeam(modelTeam);
+
+                foreach (PersonModel team in teamMembersListBox.Items)
+                {
+
+                    modelTeam.TeamMembers.Add(team);
+                    GlobalConfig.Connection.CreateTeamMembers(team, modelTeam);
+                }
+
             }
             else
             {
-                MessageBox.Show("Select one item in the combobox");
+                MessageBox.Show(message, "ERROR");
             }
-
-
 
         }
     }
